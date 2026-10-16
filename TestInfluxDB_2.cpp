@@ -7,8 +7,6 @@
 #include "TestInfluxDB_2Dlg.h"
 
 
-string g_strIpInfo = "http://128.0.0.100:9000/";
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -22,7 +20,6 @@ END_MESSAGE_MAP()
 
 
 // CTestInfluxDB_2App 构造
-CTestInfluxDB_2Dlg *m_pdlg;
 CTestInfluxDB_2App::CTestInfluxDB_2App()
 {
 	// 支持重新启动管理器
@@ -36,8 +33,6 @@ CTestInfluxDB_2App::CTestInfluxDB_2App()
 // 唯一的一个 CTestInfluxDB_2App 对象
 
 CTestInfluxDB_2App theApp;
-string g_filePath;
-string g_strToken;
 // CTestInfluxDB_2App 初始化
 
 BOOL CTestInfluxDB_2App::InitInstance()
@@ -49,7 +44,7 @@ BOOL CTestInfluxDB_2App::InitInstance()
 	InitCtrls.dwSize = sizeof(InitCtrls);
 	// 将它设置为包括所有要在应用程序中使用的
 	// 公共控件类。
-	InitCtrls.dwICC = ICC_WIN95_CLASSES;
+	InitCtrls.dwICC = ICC_WIN95_CLASSES | ICC_DATE_CLASSES;
 	InitCommonControlsEx(&InitCtrls);
 
 	CWinApp::InitInstance();
@@ -71,53 +66,8 @@ BOOL CTestInfluxDB_2App::InitInstance()
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
 
-	char fileName[MAX_PATH + 1];
-	GetModuleFileNameA(0, fileName, sizeof(fileName));//改为进程启动路径,当前路径是会变化的 .
-	g_filePath = fileName;//..\gtplus\bin\gtplus.exe
-	g_filePath = g_filePath.substr(0, g_filePath.rfind('\\'));//Left(filePath.ReverseFind('\\'));//..\gtplus\bin
-
-	//CHttpClient* pHttpClient_DDB = new CHttpClient;
-	//
-	//string strReadDDBUrl = g_strIpInfo;
-	//strReadDDBUrl += "user/get_token";
-	//string strRespond;
-	//string strToken = "";
-	//string json_content= "";
-	//int iRet = pHttpClient_DDB->LogOn(strReadDDBUrl,strToken,json_content,strRespond);
-
-	//if(iRet == 0)
-	//{
-	//	int iPos = strRespond.find("token");
-	//	g_strToken = strRespond.substr(iPos+8,36);
-	//}
-
-
-
-
 	CTestInfluxDB_2Dlg dlg;
-	m_pdlg = &dlg;
 	m_pMainWnd = &dlg;
-
-	//CQueryDDBThread theCQueryDDBThread[1000];
-	//for(int k =0;k<16;k++)
-	//{
-	//	
-	//	theCQueryDDBThread[k].m_iIndex = k;
-	//	theCQueryDDBThread[k].StartThread();
-	//	
-	//	Sleep(10);
-	//}
-
-	//CQueryHDBThread theCQueryHDBThread[1000];
-	//for(int k =0;k<100;k++)
-	//{
-	//	
-	//	theCQueryHDBThread[k].m_iIndex = k;
-	//	theCQueryHDBThread[k].StartThread();
-	//	
-	//	Sleep(10);
-	//}
-
 
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
@@ -140,8 +90,4 @@ BOOL CTestInfluxDB_2App::InitInstance()
 	// 由于对话框已关闭，所以将返回 FALSE 以便退出应用程序，
 	//  而不是启动应用程序的消息泵。
 	return FALSE;
-}
-void CTestInfluxDB_2App::functionaa(time_t starttime,time_t endtime,char chTagName[64],int pix,int iIndex,float fMD,float fMU,char chTagName_temp[64])
-{
-	m_pdlg->QuerySinglePointTrendEX(starttime,endtime,chTagName,pix,iIndex,fMD,fMU,chTagName_temp);
 }

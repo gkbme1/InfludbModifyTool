@@ -258,3 +258,44 @@ int InfluxdbClient::Write(const std::string & strUrl, const std::string & strDBN
 	curl_easy_cleanup(curl);
 	return res;
 }
+
+int InfluxdbClient::WriteEx(const std::string & strUrl, const std::string & strDBName,const std::string & strData, std::string & strResponse,int iTimeOut,long* pHttpCode)
+{
+	std::string strUrl1 = strUrl;
+	strUrl1 += "db=";
+	strUrl1 += strDBName;
+
+	if(pHttpCode)
+	{
+		*pHttpCode = 0;
+	}
+	CURLcode res;
+	CURL* curl = curl_easy_init();
+	if(NULL == curl)
+	{
+		return CURLE_FAILED_INIT;
+	}
+	if(m_bDebug)
+	{
+		curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+		curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, OnDebug);
+	}
+
+	curl_easy_setopt(curl, CURLOPT_URL, strUrl1.c_str());
+	curl_easy_setopt(curl, CURLOPT_POST, 1);
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, strData.c_str());
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strData.size());
+	curl_easy_setopt(curl, CURLOPT_READFUNCTION, NULL);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, OnWriteData);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&strResponse);
+	curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
+	curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3);
+	curl_easy_setopt(curl, CURLOPT_TIMEOUT, iTimeOut);
+	res = curl_easy_perform(curl);
+	if(res == CURLE_OK && pHttpCode)
+	{
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, pHttpCode);
+	}
+	curl_easy_cleanup(curl);
+	return res;
+}

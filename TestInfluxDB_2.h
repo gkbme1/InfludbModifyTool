@@ -9,8 +9,6 @@
 #endif
 
 #include "resource.h"		// 主符号
-#include "QueryDDBThread.h"
-#include "QueryHDBThread.h"
 
 // CTestInfluxDB_2App:
 // 有关此类的实现，请参阅 TestInfluxDB_2.cpp
@@ -25,11 +23,9 @@ public:
 public:
 	virtual BOOL InitInstance();
 
-	void functionaa(time_t starttime,time_t endtime,char chTagName[64],int pix,int iIndex,float fMD,float fMU,char chTagName_temp[64]);
-	
 // 实现
 
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CTestInfluxDB_2App theApp;
+extern CTestInfluxDB_2App theApp;

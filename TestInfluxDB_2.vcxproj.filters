@@ -45,13 +45,10 @@
     <ClInclude Include="InfluxdbClient.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="QueryInfluxdbThread.h">
+    <ClInclude Include="DataSmoother.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="QueryDDBThread.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="QueryHDBThread.h">
+    <ClInclude Include="TrendCtrl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,16 +71,10 @@
     <ClCompile Include="jsoncpp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="QueryInfluxdbThread.cpp">
+    <ClCompile Include="DataSmoother.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="QueryDDBThread.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="QueryHDBThread.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HBExBasicListCtrl.cpp">
+    <ClCompile Include="TrendCtrl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
