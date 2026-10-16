@@ -249,7 +249,8 @@ BOOL CTestInfluxDB_2Dlg::OnInitDialog()
 	SetDlgItemText(IDC_EDIT_BAND, _T("5"));
 	SetDlgItemText(IDC_EDIT_BACKUP, _T("TagValue_Backup"));
 	CheckDlgButton(IDC_CHECK_UTC, BST_CHECKED);
-	CheckDlgButton(IDC_CHECK_BACKUP, BST_CHECKED);
+	CheckDlgButton(IDC_CHECK_BACKUP, BST_UNCHECKED);
+	OnBnClickedBackup();
 
 	m_dtStart.SetFormat(_T("yyyy-MM-dd HH:mm:ss"));
 	m_dtEnd.SetFormat(_T("yyyy-MM-dd HH:mm:ss"));
